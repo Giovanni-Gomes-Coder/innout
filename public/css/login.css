@@ -1,0 +1,28 @@
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #DDD;
+}
+
+.form-login {
+    flex-basis: 450px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+}
+
+.card-header span {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: flex-end;
+}
