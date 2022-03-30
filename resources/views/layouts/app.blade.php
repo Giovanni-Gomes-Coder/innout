@@ -12,25 +12,27 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/all.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/template.css') }}">
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+        <header class="header">
             @include('layouts.navigation')
-
-            <!-- Page Heading -->
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
-        </div>
+        </header>
+        @include('layouts.left')
+        
+        <!-- Page Content -->
+        <main class="content">
+            {{ $slot }}
+        </main>
+        <footer class="footer">
+            <span>Desenvolvido com</span>
+            <span><i class="fa-solid fa-heart text-red-600 mr-1 ml-"></i></span>
+            <span>por COD<span class="text-red-600">3</span>R</span>
+        </footer>
+        <script src="{{ asset('js/innout.js') }}"></script>
     </body>
 </html>
