@@ -15,11 +15,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('../auth/login');
+    $date = (new DateTime())->getTimestamp();
+    $today = strftime('%d de %B de %Y', $date);
+
+    if(!auth()->check()){
+        return view('../auth/login');
+    } else {
+        return view('/day_records', ['today' => $today]);
+    }
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
+Route::get('/day_records', function () {
+    $date = (new DateTime())->getTimestamp();
+    $today = strftime('%d de %B de %Y', $date);
+    return view('day_records', ['today' => $today]);
 })->middleware(['auth'])->name('dashboard');
 
 Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(function () {

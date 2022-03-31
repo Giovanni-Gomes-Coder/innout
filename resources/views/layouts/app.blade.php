@@ -12,6 +12,7 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/all.css') }}">
         <link rel="stylesheet" href="{{ asset('css/template.css') }}">
 
@@ -30,7 +31,7 @@
         </main>
         <footer class="footer">
             <span>Desenvolvido com</span>
-            <span><i class="fa-solid fa-heart text-red-600 mr-1 ml-"></i></span>
+            <span><i class="fa-solid fa-heart text-red-600 mr-2 ml-2"></i></span>
             <span>por COD<span class="text-red-600">3</span>R</span>
         </footer>
         <script src="{{ asset('js/innout.js') }}"></script>

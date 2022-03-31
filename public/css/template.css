@@ -78,6 +78,7 @@ aside.sidebar .menu li.nav-item:hover {
 
 aside.sidebar .menu li.nav-item a {
     font-size: 1.2rem;
+    text-decoration: none;
     color: #555;
 }
 
@@ -85,9 +86,19 @@ body.hide-sidebar aside.sidebar {
     display: none;
 }
 
+aside.sidebar .sidebar-widgets {
+    position: sticky;
+    bottom: 20px;
+}
+
 aside.sidebar .sidebar-widget {
     display: flex;
     align-items: center;
+    flex: 1;
+}
+
+aside.sidebar .sidebar-widget .icon {
+    font-size: 3.5rem;
     margin: 2px 10px 2px 0px;
 }
 
@@ -97,9 +108,9 @@ aside.sidebar .sidebar-widget .info {
     align-items: center;
 }
 
-aside.sidebar .icon {
-    font-size: 3.5rem;
-    margin-right: 10px;
+.division {
+    widows: 80%;
+    border: solid 1px #EEE;
 }
 
 aside.sidebar .info .main {
@@ -107,7 +118,37 @@ aside.sidebar .info .main {
 }
 
 main.content {
+    background-color: #FFF;
     grid-area: content;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.2);
+}
+
+main.content .content-title {
+    display: flex;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #CCC;
+}
+
+main.content .content-title i {
+    font-size: 3rem;
+}
+
+main.content .content-title h1 {
+    color: #444;
+    font-size: 1.8rem;
+    font-weight: 300;
+    margin: 0;
+}
+
+main.content .content-title h2 {
+    color: #777;
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin: 0;
 }
 
 footer.footer {
@@ -119,4 +160,8 @@ footer.footer {
     grid-area: footer;
     background-color: #222;
     color: #FFF;
+}
+
+.record {
+    font-size: 2.2rem;
 }
