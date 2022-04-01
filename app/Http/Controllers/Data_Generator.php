@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-define('DAILY_TIME', 60 *60 *8);
+use App\Models\WorkingHours;
+use DateTime;
+
+define('DAILY_TIME', 60 * 60 * 8);
 class Data_Generator extends Controller
 {
     function getDayTemplateByOdds($regularRate,$extraRate, $lazyRate) {
@@ -39,5 +42,30 @@ class Data_Generator extends Controller
         } else {
             return $lazyDayTemplate;
         }
+    }
+
+    function populateWorkingHours($userId, $initialDate, $regularRate, $extraRate, $lazyRate) {
+        $currentDate = $initialDate;
+        $yesterday = new DateTime();
+        $yesterday->modify('-1 day');
+        $columns = ['user_id' => $userId, 'work_date' => $currentDate];
+    
+        while(isBefore($currentDate, $yesterday)) {
+            if(!isWeekend($currentDate)) {
+                $template = Data_Generator::getDayTemplateByOdds($regularRate, $extraRate, $lazyRate);
+                $columns = array_merge($columns, $template);
+                $workingHours = new WorkingHours($columns);
+                $workingHours->save();
+            }
+            $currentDate = getNextDay($currentDate)->format('Y-m-d');
+            $columns['work_date'] = $currentDate;
+        }
+    }
+
+    function dataGenerator() {
+        $lastMonth = strtotime('first day of last month');
+        $this->populateWorkingHours(1, date('Y-m-1'), 70, 20, 10);
+        $this->populateWorkingHours(3, date('Y-m-d', $lastMonth), 20, 75, 5);
+        $this->populateWorkingHours(4, date('Y-m-d', $lastMonth), 20, 10, 70);
     }
 }

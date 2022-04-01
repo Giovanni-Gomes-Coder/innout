@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('working_hours', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->date('word_date');
+            $table->date('work_date');
             $table->time('time1')->nullable();
             $table->time('time2')->nullable();
             $table->time('time3')->nullable();
