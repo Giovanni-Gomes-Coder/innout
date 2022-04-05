@@ -36,5 +36,5 @@ return [
 ];
 
 function renderTitle($title, $subtitle, $icon)  {
-    require_once(dirname(__FILE__, 2) . "/resources/views/components/title.blade.php");
+    require_once(dirname(__FILE__, 2) . '/resources/views/components/title.blade.php');
 }

@@ -4,6 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use DateInterval;
+use DateTime;
+use DateTimeImmutable;
+use Illuminate\Support\Facades\DB;
 
 class WorkingHours extends Model
 {
@@ -22,7 +26,7 @@ class WorkingHours extends Model
     ];
 
     public static function loadFromUserAndDate($userId, $workDate) {
-        $registry = WorkingHours::where('user_id', '=', $userId, '+', 'work_date', '=', $workDate)->first()->toArray();
+        $registry = DB::select("SELECT * FROM working_hours WHERE 'user_id' =  " . $userId . " AND " . "'work_date' = " . $workDate);
 
         if(!$registry) {
             $registry = new WorkingHours([
