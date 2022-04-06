@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\WorkingHours;
 use App\Models\User;
-use App\Exception\AppException;
+use App\Exceptions\AppException;
 use DateTime;
 
 
@@ -80,15 +80,14 @@ class Data_Generator extends Controller
 
     function point() {
         $workingHours = WorkingHours::loadFromUserAndDate(auth()->user()->id, date('Y-m-d'));
-        print_r($workingHours);
-        // try{
-        //     $currentTime = strftime('%H:%M:%S', time());
-        //     $workingHours->innout($currentTime);
-        //     addSuccessMsg('Ponto inserido com sucesso!');
-        // } catch(AppException $e) {
-        //     addErrorMsg($e->getMessage());
-        // }
-        // echo route('dashboard', ['working_hours' => $workingHours] + $_SESSION['message']);
+        try{
+            $currentTime = strftime('%H:%M:%S', time());
+            $workingHours->innout($currentTime);
+            addSuccessMsg('Ponto inserido com sucesso!');
+        } catch(AppException $e) {
+            addErrorMsg($e->getMessage());
+        }
+        echo route('dashboard', ['working_hours' => $workingHours] + $_SESSION['message']);
     }
 
     function forcedPoint(Request $request) {

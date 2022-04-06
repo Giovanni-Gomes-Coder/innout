@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Exceptions\AppException;
 use DateInterval;
 use DateTime;
 use DateTimeImmutable;
-use Illuminate\Support\Facades\DB;
 
 class WorkingHours extends Model
 {
@@ -26,18 +26,10 @@ class WorkingHours extends Model
     ];
 
     public static function loadFromUserAndDate($userId, $workDate) {
-        $registry = self::getOne(['user_id' => $userId, 'work_date' => $workDate]);
-        // if($arr) {
-        //     $registry = new WorkingHours($arr);
-        // }
-
-        // if(!$arr) {
-            // $registry = new WorkingHours([
-            //     'user_id' => $userId,
-            //     'work_date' => $workDate,
-            //     'worked_time' => 0
-            // ]);
-        // }
+        $registry = WorkingHours::firstOrNew(
+            ['user_id' => $userId,
+            'work_date' => $workDate]
+        );
 
         return $registry;
     }

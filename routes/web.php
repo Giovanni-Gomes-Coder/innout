@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Data_Generator;
+use App\Http\Controllers\DayRecords;
 use Illuminate\Support\Facades\Route;
 use App\Models\WorkingHours;
 /*
@@ -23,11 +24,7 @@ Route::get('/', function () {
     }
 })->name('home');
 
-Route::get('/day_records', function () {
-    $date = (new DateTime())->getTimestamp();
-    $today = strftime('%d de %B de %Y', $date);
-    return view('day_records', ['today' => $today]);
-})->middleware(['auth'])->name('dashboard');
+Route::get('/day_records', [DayRecords::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
@@ -35,7 +32,7 @@ Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(fun
 
 Route::get('/data_generator', [Data_Generator::class, 'dataGenerator'])->middleware(['auth']);
 
-Route::get('point', [Data_Generator::class, 'point'])->middleware(['auth']);
+Route::get('point', [DayRecords::class, 'point'])->middleware(['auth']);
 
 Route::post('forcedPoint', [Data_Generator::class, 'forcedPoint'])->middleware(['auth']);
 

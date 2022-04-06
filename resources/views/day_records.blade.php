@@ -14,7 +14,7 @@
         </div>
         <div class="card-body">
             <div class="d-flex m-5 justify-content-around">
-                <span class="record">Entrada 1: <?= $workingHours->time1 ?? '---' ?></span>
+                <span class="record">Entrada 1: {{ $workingHours->time1 }}</span>
                 <span class="record">Saída 1: <?= $workingHours->time2 ?? '---' ?></span>
             </div>
             <div class="d-flex m-5 justify-content-around">
