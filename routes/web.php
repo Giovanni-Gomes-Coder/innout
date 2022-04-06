@@ -16,21 +16,17 @@ use App\Models\WorkingHours;
 */
 
 Route::get('/', function () {
-    $date = (new DateTime())->getTimestamp();
-    $today = strftime('%d de %B de %Y', $date);
-    $records = WorkingHours::loadFromUserAndDate(auth()->user()->id, date('Y-m-d'));
     if(!auth()->check()){
         return view('../auth/login');
     } else {
-        return view('/day_records', ['today' => $today, 'records' => $records]);
+        return redirect()->route('dashboard');
     }
-});
+})->name('home');
 
 Route::get('/day_records', function () {
     $date = (new DateTime())->getTimestamp();
     $today = strftime('%d de %B de %Y', $date);
-    $records = WorkingHours::loadFromUserAndDate(auth()->user()->id, date('Y-m-d'));
-    return view('day_records', ['today' => $today, 'records' => $records]);
+    return view('day_records', ['today' => $today]);
 })->middleware(['auth'])->name('dashboard');
 
 Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(function () {
@@ -38,6 +34,10 @@ Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(fun
 });
 
 Route::get('/data_generator', [Data_Generator::class, 'dataGenerator'])->middleware(['auth']);
+
+Route::get('point', [Data_Generator::class, 'point'])->middleware(['auth']);
+
+Route::post('forcedPoint', [Data_Generator::class, 'forcedPoint'])->middleware(['auth']);
 
 require __DIR__.'/auth.php';
 

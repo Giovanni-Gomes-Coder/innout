@@ -6,6 +6,7 @@
             "fa-check"
         );
     @endphp
+    @include('components.messages')
     <div class="card">
         <div class="card-header">
             <h3><?= $today ?></h3>
@@ -22,14 +23,14 @@
             </div>
         </div>
         <div class="card-footer d-flex justify-content-center">
-            <a href="innout.php" class="btn btn-success btn-lg">
-                <i class="icofont-check mr-1"></i>
+            <a href="point" class="btn btn-success btn-lg">
+                <i class="fa-regular fa-circle-check"></i>
                 Bater o Ponto
             </a>
         </div>
     </div>
 
-    <form class="mt-5" action="innout.php" method="post">
+    <form class="mt-5" action="forcedPoint" method="post">
         <div class="input-group no-border">
             <input type="text" name="forcedTime" class="form-control" placeholder="Informe a hora para simular o batimento">
             <button class="btn btn-danger ml-3">

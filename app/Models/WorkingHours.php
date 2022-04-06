@@ -26,15 +26,18 @@ class WorkingHours extends Model
     ];
 
     public static function loadFromUserAndDate($userId, $workDate) {
-        $registry = DB::select("SELECT * FROM working_hours WHERE 'user_id' =  " . $userId . " AND " . "'work_date' = " . $workDate);
+        $registry = self::getOne(['user_id' => $userId, 'work_date' => $workDate]);
+        // if($arr) {
+        //     $registry = new WorkingHours($arr);
+        // }
 
-        if(!$registry) {
-            $registry = new WorkingHours([
-                'user_id' => $userId,
-                'work_date' => $workDate,
-                'worked_time' => 0
-            ]);
-        }
+        // if(!$arr) {
+            // $registry = new WorkingHours([
+            //     'user_id' => $userId,
+            //     'work_date' => $workDate,
+            //     'worked_time' => 0
+            // ]);
+        // }
 
         return $registry;
     }
@@ -67,6 +70,7 @@ class WorkingHours extends Model
         $this->$timeColumn = $time;
         $this->worked_time = getSecondsFromDateInterval($this->getWorkedInterval());
         if($this->id) {
+
             $this->update();
         } else {
             $this->save();

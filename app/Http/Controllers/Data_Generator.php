@@ -79,30 +79,26 @@ class Data_Generator extends Controller
     }
 
     function point() {
-        $date = (new Datetime())->getTimestamp();
-        $today = strftime('%d de %B de %Y', $date);
         $workingHours = WorkingHours::loadFromUserAndDate(auth()->user()->id, date('Y-m-d'));
-        $workedInterval = $workingHours->getWorkedInterval()->format('%H:%I:%S');
-        try{
-            $currentTime = strftime('%H:%M:%S', time());
-            $workingHours->innout($currentTime);
-            addSuccessMsg('Ponto inserido com sucesso!');
-        } catch(AppException $e) {
-            addErrorMsg($e->getMessage());
-        }
-        return view('/day_records', ['today' => $today, 'workingHours' => $workingHours, 'workedInterval' => $workedInterval]);
+        print_r($workingHours);
+        // try{
+        //     $currentTime = strftime('%H:%M:%S', time());
+        //     $workingHours->innout($currentTime);
+        //     addSuccessMsg('Ponto inserido com sucesso!');
+        // } catch(AppException $e) {
+        //     addErrorMsg($e->getMessage());
+        // }
+        // echo route('dashboard', ['working_hours' => $workingHours] + $_SESSION['message']);
     }
 
     function forcedPoint(Request $request) {
-        $date = (new Datetime())->getTimestamp();
-        $today = strftime('%d de %B de %Y', $date);
         $workingHours = WorkingHours::loadFromUserAndDate(auth()->user()->id, date('Y-m-d'));
-        $workedInterval = $workingHours->getWorkedInterval()->format('%H:%I:%S');
         try{
-            if (isset($_POST['forcedTime'])) {
-                $currentTime = $_POST['forcedTime'];
+            $currentTime = strftime('%H:%M:%S', time());
+            if (isset($request)) {
+                $currentTime = $request;
             }        
-            $records->innout($currentTime);
+            $workingHours->innout($currentTime);
             addSuccessMsg('Ponto inserido com sucesso!');
         } catch(AppException $e) {
             addErrorMsg($e->getMessage());
