@@ -18,16 +18,23 @@ class DayRecords extends Controller
         return view('day_records', ['today' => $today, 'workingHours' => $workingHours]);
     }
 
-    public function point() {
-        $date = (new DateTime())->getTimestamp();
-        $today = strftime('%d de %B de %Y', $date);
+    function point() {
         $workingHours = WorkingHours::loadFromUserAndDate(auth()->user()->id, date('Y-m-d'));
         try{
             $currentTime = strftime('%H:%M:%S', time());
+            $forcedTime = request('forcedTime');
+            if($forcedTime){
+                $currentTime = $forcedTime;
+            }
             $workingHours->innout($currentTime);
-            addSuccessMsg('Ponto inserido com sucesso!');
+            $type = 'success';
+            $msg = 'Ponto inserido com sucesso!';
         } catch(AppException $e) {
-            addErrorMsg($e->getMessage());
+            $type = 'danger';
+            $msg = $e->getMessage();
         }
+        return to_route('dashboard', ['workingHours' => $workingHours])->with($type, $msg);
     }
+
+
 }

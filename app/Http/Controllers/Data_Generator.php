@@ -78,29 +78,5 @@ class Data_Generator extends Controller
         echo 'Tudo certo :)';
     }
 
-    function point() {
-        $workingHours = WorkingHours::loadFromUserAndDate(auth()->user()->id, date('Y-m-d'));
-        try{
-            $currentTime = strftime('%H:%M:%S', time());
-            $workingHours->innout($currentTime);
-            addSuccessMsg('Ponto inserido com sucesso!');
-        } catch(AppException $e) {
-            addErrorMsg($e->getMessage());
-        }
-        echo route('dashboard', ['working_hours' => $workingHours] + $_SESSION['message']);
-    }
 
-    function forcedPoint(Request $request) {
-        $workingHours = WorkingHours::loadFromUserAndDate(auth()->user()->id, date('Y-m-d'));
-        try{
-            $currentTime = strftime('%H:%M:%S', time());
-            if (isset($request)) {
-                $currentTime = $request;
-            }        
-            $workingHours->innout($currentTime);
-            addSuccessMsg('Ponto inserido com sucesso!');
-        } catch(AppException $e) {
-            addErrorMsg($e->getMessage());
-        }
-    }
 }

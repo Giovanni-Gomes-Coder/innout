@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Data_Generator;
 use App\Http\Controllers\DayRecords;
+use App\Http\Controllers\MonthlyReport;
 use Illuminate\Support\Facades\Route;
 use App\Models\WorkingHours;
 /*
@@ -20,21 +21,22 @@ Route::get('/', function () {
     if(!auth()->check()){
         return view('../auth/login');
     } else {
-        return redirect()->route('dashboard');
+        return to_route('dashboard');
     }
 })->name('home');
 
 Route::get('/day_records', [DayRecords::class, 'index'])->middleware(['auth'])->name('dashboard');
 
-Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(function () {
-    Route::get('/', [AdminController::class, 'index'])->name('index');
-});
+Route::get('point', [DayRecords::class, 'point'])->middleware(['auth']);
+
+Route::get('/monthly_report', [MonthlyReport::class, 'index'])->middleware(['auth']);
+
 
 Route::get('/data_generator', [Data_Generator::class, 'dataGenerator'])->middleware(['auth']);
 
-Route::get('point', [DayRecords::class, 'point'])->middleware(['auth']);
-
-Route::post('forcedPoint', [Data_Generator::class, 'forcedPoint'])->middleware(['auth']);
+Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('index');
+});
 
 require __DIR__.'/auth.php';
 
