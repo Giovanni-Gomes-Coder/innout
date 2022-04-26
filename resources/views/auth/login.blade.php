@@ -1,9 +1,11 @@
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
+            <i class="fa-solid fa-person-walking-luggage mr-2"></i>
             <span class="font-light">In </span>
-            <span class="font-bold">N'</span>
+            <span class="font-bold mr-2 ml-2">N'</span>
             <span class="font-light">Out</span>
+            <i class="fa-solid fa-person-running ml-2"></i>
         </x-slot>
 
         <!-- Session Status -->
